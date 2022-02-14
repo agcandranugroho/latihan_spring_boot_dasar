@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -19,15 +20,19 @@ public class users implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Name is required")
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
+    @NotEmpty(message = "Email is required")
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
+    @NotEmpty(message = "Password is required")
     @Column(name = "password", length = 100, nullable = false)
     private String password;
 
+    @NotEmpty(message = "Role is required")
     @Column(name = "role", length = 100, nullable = false)
     private String role;
 
