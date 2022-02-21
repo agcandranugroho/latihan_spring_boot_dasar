@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product")
@@ -30,7 +31,7 @@ public class products implements Serializable {
     @Column(name = "product_description", length = 100, nullable = false)
     private String description;
 
-    @NotEmpty(message = "Product price is required")
+    @NotNull(message = "Price is required")
     @Column(name = "product_price", length = 100, nullable = false)
     private Double price;
 
