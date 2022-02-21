@@ -1,12 +1,17 @@
 package com.example.models.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -34,6 +39,14 @@ public class products implements Serializable {
     @NotNull(message = "Price is required")
     @Column(name = "product_price", length = 100, nullable = false)
     private Double price;
+
+    // relasi dengan entity class category
+    @ManyToOne
+    private category category;
+
+    @ManyToMany
+    @JoinTable(name = "product_supplier", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
+    private Set<supplier> suppliers;
 
     public products() {
     }
@@ -75,6 +88,22 @@ public class products implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public category getCategory() {
+        return category;
+    }
+
+    public void setCategory(category category) {
+        this.category = category;
+    }
+
+    public Set<supplier> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Set<supplier> suppliers) {
+        this.suppliers = suppliers;
     }
 
 }

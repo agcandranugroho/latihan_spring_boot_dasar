@@ -1,12 +1,14 @@
 package com.example.models.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -26,6 +28,9 @@ public class supplier implements Serializable {
     @NotEmpty(message = "Alamat is required")
     @Column(name = "alamat", length = 200, nullable = false)
     private String alamat;
+
+    @ManyToMany(mappedBy = "suppliers")
+    private Set<products> products;
 
     public supplier() {
     }
@@ -62,6 +67,14 @@ public class supplier implements Serializable {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public Set<products> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<products> products) {
+        this.products = products;
     }
 
 }
