@@ -24,9 +24,11 @@ public class customers {
     @Column(name = "email", length = 100)
     private String email;
 
+    @NotEmpty(message = "Alamat is required")
     @Column(name = "address", length = 100)
     private String address;
 
+    @NotEmpty(message = "No Hp is required")
     @Column(name = "phone", length = 100)
     private String phone;
 
