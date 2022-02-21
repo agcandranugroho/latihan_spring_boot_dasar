@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "supplier")
@@ -18,9 +19,11 @@ public class supplier implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Name is required")
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
+    @NotEmpty(message = "Alamat is required")
     @Column(name = "alamat", length = 200, nullable = false)
     private String alamat;
 

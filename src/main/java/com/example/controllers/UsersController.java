@@ -5,8 +5,6 @@ import javax.validation.Valid;
 import com.example.DTO.ResponseData;
 import com.example.models.entities.users;
 import com.example.services.UserService;
-
-import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

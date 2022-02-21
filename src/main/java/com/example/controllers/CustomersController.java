@@ -1,9 +1,16 @@
 package com.example.controllers;
 
+import javax.validation.Valid;
+
+import com.example.DTO.ResponseData;
 import com.example.models.entities.customers;
 import com.example.services.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,13 +28,38 @@ public class CustomersController {
     private CustomerService customerService;
 
     @PostMapping
-    public customers create(@RequestBody customers customers) {
-        return customerService.post(customers);
+    public ResponseEntity<ResponseData<customers>> create(@Valid @RequestBody customers customers, Errors errors) {
+
+        ResponseData<customers> responseData = new ResponseData<>();
+
+        if (errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()) {
+                responseData.getMessages().add(error.getDefaultMessage());
+            }
+            responseData.setStatus(false);
+            responseData.setPayload(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+        responseData.setStatus(true);
+        responseData.setPayload(customerService.post(customers));
+        return ResponseEntity.ok(responseData);
     }
 
     @PutMapping
-    public customers update(@RequestBody customers customers) {
-        return customerService.put(customers);
+    public ResponseEntity<ResponseData<customers>> update(@Valid @RequestBody customers customers, Errors errors) {
+        ResponseData<customers> responseData = new ResponseData<>();
+
+        if (errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()) {
+                responseData.getMessages().add(error.getDefaultMessage());
+            }
+            responseData.setStatus(false);
+            responseData.setPayload(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+        responseData.setStatus(true);
+        responseData.setPayload(customerService.put(customers));
+        return ResponseEntity.ok(responseData);
     }
 
     @DeleteMapping("/{id}")

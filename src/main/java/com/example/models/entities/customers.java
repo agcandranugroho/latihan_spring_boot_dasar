@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "customers")
@@ -15,9 +16,11 @@ public class customers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Name is Required")
     @Column(name = "name", length = 100)
     private String name;
 
+    @NotEmpty(message = "Email is Required")
     @Column(name = "email", length = 100)
     private String email;
 
